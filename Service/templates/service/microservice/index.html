@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'service/css/style.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{% static 'service/js/tailwind.config.js' %}"></script>
+</head>
+
+<body class="bg-gray-3">
+<div class="">
+    <header class="bg-white px-4">
+        <div class="flex items-center max-w-[1055px] m-auto">
+            {% for category in categories %}
+                <div data-tab="tab-{{ category.id }}"
+                     class="text-gray-1 font-medium py-[14px] mr-5 cursor-pointer tab-head ">{{ category }}</div>
+
+            {% endfor %}
+        </div>
+    </header>
+
+    <div class="px-4">
+
+        <div class="mt-6 max-w-[1055px] m-auto">
+            {% for category in categories %}
+                <div data-tab="tab-{{ category.id }}" class="tab-content">
+                    {% for group in category.groups.all %}
+                        <div class="mb-4 bg-white rounded-xl shadow-[0_1px_3px_fgba(0,0,0,0.12)] p-3 768:p-[30px] 768:mb-8">
+
+                            <div class="mb-2 font-medium 768:mb-6 768:text-xl">{{ group.name }}</div>
+                            <div class="768:grid 768:grid-cols-2 768:gap-4 1024:grid-cols-3">
+                                {% for service in group.services.all %}
+                                    <a href="{{ service.url }}"
+                                       class="flex items-center justify-between p-2 bg-gray-2 rounded-xl mb-1.5 last:mb-0  768:mb-0">
+                                        <div class="flex items-center mb-1.5">
+                                            <div class="w-12 h-12 flex items-center justify-center mr-2">
+                                                <img src="{{ service.icon.url }}"
+                                                     class="w-6 h-6 object-contain" alt="">
+                                            </div>
+                                            <div>
+                                                <div class="font-medium mb-1">{{ service.name }}</div>
+                                                <div class="text-gray-1">{{ service.description }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="w-9 h-9 flex items-center justify-center">
+                                            <img src="{% static 'service/images/arrow-rignt.svg' %}" class="w-5 h-5"
+                                                 alt="">
+                                        </div>
+                                    </a>
+
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+</body>
+
+
+<script src="{% static 'service/js/main.js' %}"></script>
+
+</html>
