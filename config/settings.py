@@ -26,7 +26,6 @@ SECRET_KEY = config('SECRET_KEY')
 # DEBUG = True
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -213,7 +212,8 @@ INTERNAL_IPS = [
 
 
 def show_toolbar(request):
-    if request.path.startswith('/admin/') or request.path.startswith('/index/'):  # or request.path.startswith('/category-api/'):
+    if request.path.startswith('/admin/') or request.path.startswith(
+            '/index/'):  # or request.path.startswith('/category-api/'):
         return False
     return True
 
