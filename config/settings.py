@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'Service.apps.ServiceConfig',
     'baton',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Service.apps.ServiceConfig',
+
     'rest_framework',
     'mptt',
     'baton.autodiscover',
@@ -212,7 +213,7 @@ INTERNAL_IPS = [
 
 
 def show_toolbar(request):
-    if request.path.startswith('/admin/'):  # or request.path.startswith('/category-api/'):
+    if request.path.startswith('/admin/') or request.path.startswith('/index/'):  # or request.path.startswith('/category-api/'):
         return False
     return True
 
