@@ -16,7 +16,6 @@ class ServiceStackedInline(SortableTabularInline):
 
 class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
     ordering = ["order"]
-    list_filter = ['title', ]
     search_fields = ["title"]
     list_display = ['title', 'order']
     inlines = [GroupServiceStackedInline]
@@ -25,10 +24,10 @@ class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
 admin.site.register(Category, CategoryAdmin)
 
 
-class ServiceAdmin(SortableAdminMixin, admin.ModelAdmin):
-    search_fields = ["name", "group__name"]
-    list_filter = ['name', 'group', ]
-    list_display = ['name', 'url', 'icon', 'group', 'my_order']
+class ServiceAdmin(admin.ModelAdmin):
+    search_fields = ["group__name", ]
+    list_filter = ['group', ]
+    list_display = ['name', 'url', 'icon', 'group']
 
 
 admin.site.register(Service, ServiceAdmin)
