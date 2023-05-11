@@ -7,6 +7,6 @@ urlpatterns = [
     path('group-api/<int:category_id>', GroupServiceView.as_view()),
     # path('category/<int:category_id>/', category, name='category'),
     # path('group/<int:category_id>/', group_service, name='group_service'),
-    path('index/', index, name='index')
+    path('', index, name='index')
 ]
 
