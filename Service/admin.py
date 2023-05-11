@@ -1,11 +1,11 @@
 from adminsortable2.admin import SortableAdminMixin, SortableTabularInline
 from django.contrib import admin
+from django.contrib.auth.models import Group, User
 
 from Service.models import Category, Service, GroupService
 
 
 # Register your models here.
-
 class GroupServiceStackedInline(SortableTabularInline):
     model = GroupService
 
@@ -17,8 +17,11 @@ class ServiceStackedInline(SortableTabularInline):
 class CategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
     ordering = ["order"]
     search_fields = ["title"]
-    list_display = ['title', 'order']
+    list_display = ['title', 'order', ]
     inlines = [GroupServiceStackedInline]
+
+    # def group_count(self, obj):
+    #     return obj.groups.count()
 
 
 admin.site.register(Category, CategoryAdmin)
@@ -36,7 +39,7 @@ admin.site.register(Service, ServiceAdmin)
 class GroupServiceAdmin(SortableAdminMixin, admin.ModelAdmin):
     search_fields = ["name"]
     list_filter = ['category', ]
-    list_display = ['name','my_order']
+    list_display = ['name', 'my_order']
     inlines = [ServiceStackedInline]
 
 
