@@ -17,11 +17,11 @@
     <header class="bg-white px-4">
         <div class="flex items-center max-w-[1055px] m-auto">
             {% for category in categories %}
-                {% if category.groups.services %}
-                    <div data-tab="tab-{{ category.id }}"
-                         class="text-gray-1 font-medium py-[14px] mr-5 cursor-pointer tab-head">{{ category }}
-                    </div>
-                {% endif %}
+
+                <div data-tab="tab-{{ category.id }}"
+                     class="text-gray-1 font-medium py-[14px] mr-5 cursor-pointer tab-head">{{ category }}
+                </div>
+
             {% endfor %}
         </div>
     </header>

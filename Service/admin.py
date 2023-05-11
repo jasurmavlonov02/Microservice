@@ -36,7 +36,7 @@ admin.site.register(Service, ServiceAdmin)
 class GroupServiceAdmin(SortableAdminMixin, admin.ModelAdmin):
     search_fields = ["name"]
     list_filter = ['category', ]
-    list_display = ['name', 'my_order']
+    list_display = ['name','my_order']
     inlines = [ServiceStackedInline]
 
 

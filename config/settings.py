@@ -200,8 +200,8 @@ INTERNAL_IPS = [
 
 
 def show_toolbar(request):
-    if request.path.startswith('/admin/'):
-        # or request.path.startswith('/category-api/'):
+    if request.path.startswith('/admin/') :
+        # or request.path.startswith('/index/')
         return False
     return True
 
