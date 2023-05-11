@@ -217,6 +217,11 @@ def show_toolbar(request):
         return False
     return True
 
+CORS_ORIGIN_ALLOW_ALL = True
+CSRF_TRUSTED_ORIGINS=[
+'https://dash.tm.uz',
+"http://0.0.0.0:8001"
+]
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
