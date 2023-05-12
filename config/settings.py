@@ -79,22 +79,24 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "dash",
+#         "USER": "dash",
+#         "PASSWORD": "dash",
+#         "HOST": "localhost",  # set in docker-compose.yml
+#         "PORT": 5432,  # default postgres port
+#     }
+# }
+
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "dash",
-        "USER": "dash",
-        "PASSWORD": "dash",
-        "HOST": "localhost",  # set in docker-compose.yml
-        "PORT": 5432,  # default postgres port
-    }
+   'default': {
+       'ENGINE': 'django.db.backends.sqlite3',
+       'NAME': BASE_DIR / 'db.sqlite3',
+   }
 }
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
 
 
 # Password validation
@@ -212,15 +214,16 @@ INTERNAL_IPS = [
 
 
 def show_toolbar(request):
-    if request.path.startswith('/admin/') :
+    if request.path.startswith('/admin/'):
         # or request.path.startswith('/index/')
         return False
     return True
 
+
 CORS_ORIGIN_ALLOW_ALL = True
-CSRF_TRUSTED_ORIGINS=[
-'https://dash.tm.uz',
-"http://0.0.0.0:8001"
+CSRF_TRUSTED_ORIGINS = [
+    'https://dash.tm.uz',
+    "http://0.0.0.0:8001"
 ]
 
 DEBUG_TOOLBAR_CONFIG = {
