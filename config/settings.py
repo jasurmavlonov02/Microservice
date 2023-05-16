@@ -28,7 +28,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'Service.apps.ServiceConfig',
+
     'baton',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -36,12 +36,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'Service.apps.ServiceConfig',
     'rest_framework',
     'mptt',
     'baton.autodiscover',
     "debug_toolbar",
     'adminsortable2',
+    'import_export'
 ]
 
 MIDDLEWARE = [
@@ -89,15 +90,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 #         "PORT": 5432,  # default postgres port
 #     }
 # }
-
+#
 
 DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.sqlite3',
-       'NAME': BASE_DIR / 'db.sqlite3',
-   }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -130,6 +130,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+
 import os
 
 STATIC_URL = '/assets/'
@@ -165,7 +168,7 @@ BATON = {
     'ENABLE_IMAGES_PREVIEW': True,
     'CHANGELIST_FILTERS_IN_MODAL': False,
     'CHANGELIST_FILTERS_ALWAYS_OPEN': True,
-    'CHANGELIST_FILTERS_FORM': True,
+    'CHANGELIST_FILTERS_FORM': False,
     'COLLAPSABLE_USER_AREA': False,
     'MENU_ALWAYS_COLLAPSED': False,
     'MENU_TITLE': 'Menu',
@@ -176,30 +179,64 @@ BATON = {
 
     'MENU': (
 
+        {
+            'type': 'app',
+            'name': 'service',
+            'label': 'Модели',
+            'default_open': True,
+            'models': (
+                {
+                    'name': 'category',
+                    'label': 'Категория'
+                },
+                {
+                    'name': 'groupservice',
+                    'label': 'Группы'
+                },
+                {
+                    'name': 'service',
+                    'label': 'Сервис'
+                },
+            )
+
+        },
         # {
-        #     'type': 'title',
-        #     'label': 'Контент',
-        #     'apps': ('service',),
+        #     'type': 'free',
+        #     'label': 'Settings',
         #     'default_open': True,
         #     'children': [
-        {
-            'type': 'model',
-            'label': 'Категория',
-            'name': 'category',
-            'app': 'service'
-        },
-        {
-            'type': 'model',
-            'label': 'Сервис',
-            'name': 'service',
-            'app': 'service'
-        },
-        {
-            'type': 'model',
-            'label': 'Групповое сервис',
-            'name': 'groupservice',
-            'app': 'service'
-        },
+        #         {
+        #             'type': 'free',
+        #             'label': 'Import',
+        #
+        #         },
+        #         {
+        #             'type': 'free',
+        #             'label': 'Export',
+        #
+        #         },
+        #
+        #     ]
+        # }
+        # {
+        #     'type': 'model',
+        #     'label': 'Категория',
+        #     'name': 'category',
+        #     'app': 'service'
+        # },
+        # {
+        #     'type': 'model',
+        #     'label': 'Группы',
+        #     'name': 'groupservice',
+        #     'app': 'service'
+        # },
+        # {
+        #     'type': 'model',
+        #     'label': 'Сервис',
+        #     'name': 'service',
+        #     'app': 'service'
+        # },
+
         # ]
         # },
 
@@ -214,8 +251,8 @@ INTERNAL_IPS = [
 
 
 def show_toolbar(request):
-    if request.path.startswith('/admin/'):
-        # or request.path.startswith('/index/')
+    if request.path.startswith('/admin/') or request.path.startswith(''):
+        #
         return False
     return True
 
