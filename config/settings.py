@@ -62,7 +62,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'Service/templates']
+        'DIRS': [BASE_DIR / 'Service/../templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -137,6 +137,7 @@ import os
 
 STATIC_URL = '/assets/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
