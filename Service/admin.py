@@ -18,7 +18,6 @@ class ServiceStackedInline(SortableTabularInline):
     extra = 1
 
 
-
 class ServiceResource(ModelResource):
     class Meta:
         model = Service
