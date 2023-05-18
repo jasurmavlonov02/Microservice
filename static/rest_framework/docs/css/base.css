@@ -205,7 +205,7 @@ body {
 }
 
 
-/* @group Language Switcher */
+/* @GroupService Language Switcher */
 
 .sidebar .menu-list.menu-list-bottom {
     margin-bottom: 0;
@@ -226,7 +226,7 @@ body {
 /* @end Language Switcher */
 
 
-/* @group Docs Content */
+/* @GroupService Docs Content */
 
 .docs-content .meta .label {
     vertical-align: middle;

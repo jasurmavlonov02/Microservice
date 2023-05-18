@@ -255,7 +255,7 @@
     var topLevelWrappingMap = {
       option: ['select'],
       thead: ['table'],
-      col: ['colgroup', 'table'],
+      col: ['colGroupService', 'table'],
       tr: ['tbody', 'table'],
       th: ['tr', 'tbody', 'table'],
       td: ['tr', 'tbody', 'table'],
