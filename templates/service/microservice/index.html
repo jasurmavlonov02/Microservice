@@ -33,13 +33,13 @@
 
                 <div data-tab="tab-{{ category.id }}" class="tab-content">
                     {% for group in category.groups.all %}
-                        {% if group.services.exists %}
+                        {% if group.service.exists %}
                             <div class="mb-4 bg-white rounded-xl shadow-[0_1px_3px_fgba(0,0,0,0.12)] p-3 768:p-[30px] 768:mb-8">
 
                                 <div class="mb-2 font-medium 768:mb-6 768:text-xl">{{ group.name }}</div>
                                 <div class="768:grid 768:grid-cols-2 768:gap-4 1024:grid-cols-3">
 
-                                    {% for service in group.services.all %}
+                                    {% for service in group.service.all %}
                                         <a href="{{ service.url }}" target="_blank"
                                            class="flex items-center justify-between p-2 bg-gray-2 rounded-xl mb-1.5 last:mb-0  768:mb-0">
                                             <div class="flex items-center mb-1.5">

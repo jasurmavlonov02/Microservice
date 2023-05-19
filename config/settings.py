@@ -179,11 +179,25 @@ BATON = {
     'LOGIN_SPLASH': '/static/core/img/login-splash.png',
 
     'MENU': (
+        {
+            'type': 'app',
+            'name': 'auth',
+            'label': 'Аутентификация',
+            'icon': 'fa fa-lock',
+            'models': (
+                {
+                    'name': 'user',
+                    'label': 'Пользователи'
+                },
+
+            )
+        },
 
         {
             'type': 'app',
             'name': 'service',
             'label': 'Модели',
+            'icon': 'fa fa-lock',
             'default_open': True,
             'models': (
                 {
@@ -253,7 +267,6 @@ INTERNAL_IPS = [
 
 def show_toolbar(request):
     if request.path.startswith('/admin/') or request.path.startswith(''):
-        #
         return False
     return True
 

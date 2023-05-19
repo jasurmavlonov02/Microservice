@@ -22,14 +22,15 @@ class Service(models.Model):
     url = models.URLField(max_length=200, verbose_name='урл')
     icon = models.FileField(upload_to='icons', null=True, verbose_name='икона')
     description = models.CharField(max_length=100, default='Онлайн', verbose_name='описание')
-    group = models.ForeignKey('GroupService', on_delete=models.SET_NULL, null=True,
-    related_name = 'services', verbose_name = 'группа')
-    my_order = models.IntegerField(
-        default=0,
-        blank=False,
-        null=False,
-        verbose_name="группировка"
-    )
+
+    # group = models.ForeignKey('GroupService', on_delete=models.SET_NULL, null=True,
+    #                           related_name='services', verbose_name='группа')
+    # my_order = models.IntegerField(
+    #     default=0,
+    #     blank=False,
+    #     null=False,
+    #     verbose_name="группировка"
+    # )
 
     def __str__(self):
         return self.name
@@ -37,7 +38,7 @@ class Service(models.Model):
     class Meta:
         verbose_name_plural = 'Сервисы'
         verbose_name = 'Сервис'
-        ordering = ('my_order',)
+        # ordering = ('my_order',)
         db_table = 'service'
 
 
@@ -45,6 +46,8 @@ class GroupService(models.Model):
     name = models.CharField(max_length=255, unique=True, verbose_name='Названия группы')
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, related_name='groups',
                                  verbose_name='категория')
+    service = models.ManyToManyField('Service', )
+
     my_order = models.IntegerField(
         default=0,
         blank=False,
@@ -60,3 +63,5 @@ class GroupService(models.Model):
         verbose_name = "Группы"
         ordering = ('my_order',)
         db_table = 'group_service'
+
+#

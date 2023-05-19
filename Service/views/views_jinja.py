@@ -4,8 +4,8 @@ from Service.models import Category
 
 
 def index(request):
-    categories = Category.objects.annotate(num_services=Count('groups__services')).filter(
-        Q(num_services__gt=0) | Q(num_services=None)).prefetch_related('groups__services').order_by('order')
+    categories = Category.objects.annotate(num_services=Count('groups__service')).filter(
+        Q(num_services__gt=0) | Q(num_services=None)).prefetch_related('groups__service').order_by('order')
 
     context = {
         'categories': categories,
