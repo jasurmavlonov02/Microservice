@@ -39,10 +39,11 @@ INSTALLED_APPS = [
     'Service.apps.ServiceConfig',
     'rest_framework',
     'mptt',
-    'baton.autodiscover',
     "debug_toolbar",
     'adminsortable2',
-    'import_export'
+    'import_export',
+    'baton.autodiscover',
+
 ]
 
 MIDDLEWARE = [
@@ -135,7 +136,7 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 import os
 
-STATIC_URL = '/assets/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 STATICFILES_DIRS = [
@@ -149,7 +150,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'Service/media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
@@ -197,7 +197,7 @@ BATON = {
             'type': 'app',
             'name': 'service',
             'label': 'Модели',
-            'icon': 'fa fa-lock',
+            'icon': 'fa fa-gavel',
             'default_open': True,
             'models': (
                 {
