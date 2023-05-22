@@ -52,6 +52,8 @@ admin.site.unregister(User)
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
+    list_filter = []
+    list_display = ['username', 'email', 'is_superuser']
     fields = ['username', 'password', 'is_staff', 'is_superuser']
     fieldsets = []
 
