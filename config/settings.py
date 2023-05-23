@@ -26,11 +26,10 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-environ.Env.read_env(os.path.join(BASE_DIR, '.env-example'))
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-owro_c$fb&y6wj7mx$)apyvkdfv+(#pme)b$(@(moi4)^w4o=n'
-SECRET_KEY = 'django-insecure-owro_c$fb&y6wj7mx$)apyvkdfv+(#pme)b$(@(moi4)^w4o=n'
-
+SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 DEBUG = env('DEBUG')
