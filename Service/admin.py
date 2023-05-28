@@ -4,11 +4,6 @@ from import_export.admin import ImportExportModelAdmin
 
 from Service.models import Category, Service, GroupService
 from adminsortable2.admin import SortableAdminMixin, SortableTabularInline
-from django.contrib import admin
-from django.contrib.auth.models import User
-from django.contrib import admin
-from django.contrib.auth.models import User
-from django.contrib.auth.admin import UserAdmin
 
 
 #
@@ -45,17 +40,6 @@ class ServiceAdmin(ImportExportModelAdmin):
     # search_fields = ["", ]
     list_filter = ["groupservice__name"]
     list_display = ['name', 'url', 'icon', ]
-
-
-admin.site.unregister(User)
-
-
-@admin.register(User)
-class CustomUserAdmin(UserAdmin):
-    list_filter = []
-    list_display = ['username', 'email', 'is_superuser']
-    fields = ['username', 'password', 'is_staff', 'is_superuser']
-    fieldsets = []
 
 
 admin.site.register(Category, CategoryAdmin)

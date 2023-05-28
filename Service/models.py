@@ -1,10 +1,14 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+
+from users.models import Role
 
 
 # Create your models here.
 
 class Category(models.Model):
     title = models.CharField(max_length=100, unique=True, verbose_name='Названия категории')
+    role = models.ManyToManyField(Role, verbose_name='роль')
     order = models.IntegerField(default=0, verbose_name='группировка')
 
     def __str__(self):
@@ -63,5 +67,3 @@ class GroupService(models.Model):
         verbose_name = "Группы"
         ordering = ('my_order',)
         db_table = 'group_service'
-
-#
