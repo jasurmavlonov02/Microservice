@@ -130,12 +130,12 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 import os
 
-STATIC_URL = '/assets/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATIC_URL = 'https://dash.tm.uz/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, 'static'),
+#]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'Service/media')
