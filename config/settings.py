@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'adminsortable2',
     'import_export',
     'baton.autodiscover',
+    'users'
 
 ]
 
@@ -81,6 +82,7 @@ TEMPLATES = [
     },
 ]
 
+AUTH_USER_MODEL = 'users.CustomUser'
 WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
@@ -175,13 +177,18 @@ BATON = {
     'MENU': (
         {
             'type': 'app',
-            'name': 'auth',
+            'name': 'users',
             'label': 'Аутентификация',
             'icon': 'fa fa-lock',
+            'default_open': True,
             'models': (
                 {
-                    'name': 'user',
+                    'name': 'customuser',
                     'label': 'Пользователи'
+                },
+                {
+                    'name': 'role',
+                    'label': 'Роль'
                 },
 
             )
@@ -209,45 +216,6 @@ BATON = {
             )
 
         },
-        # {
-        #     'type': 'free',
-        #     'label': 'Settings',
-        #     'default_open': True,
-        #     'children': [
-        #         {
-        #             'type': 'free',
-        #             'label': 'Import',
-        #
-        #         },
-        #         {
-        #             'type': 'free',
-        #             'label': 'Export',
-        #
-        #         },
-        #
-        #     ]
-        # }
-        # {
-        #     'type': 'model',
-        #     'label': 'Категория',
-        #     'name': 'category',
-        #     'app': 'service'
-        # },
-        # {
-        #     'type': 'model',
-        #     'label': 'Группы',
-        #     'name': 'groupservice',
-        #     'app': 'service'
-        # },
-        # {
-        #     'type': 'model',
-        #     'label': 'Сервис',
-        #     'name': 'service',
-        #     'app': 'service'
-        # },
-
-        # ]
-        # },
 
     )
 }
