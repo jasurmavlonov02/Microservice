@@ -24,17 +24,8 @@ class Category(models.Model):
 class Service(models.Model):
     name = models.CharField(max_length=50, verbose_name='Названия сервисов')
     url = models.URLField(max_length=200, verbose_name='урл')
-    icon = models.FileField(upload_to='icons', null=True, verbose_name='икона')
-    description = models.CharField(max_length=100, default='Онлайн', verbose_name='описание')
-
-    # group = models.ForeignKey('GroupService', on_delete=models.SET_NULL, null=True,
-    #                           related_name='services', verbose_name='группа')
-    # my_order = models.IntegerField(
-    #     default=0,
-    #     blank=False,
-    #     null=False,
-    #     verbose_name="группировка"
-    # )
+    icon = models.FileField(upload_to='icons/', null=True, verbose_name='икона')
+    description = models.TextField(default='Онлайн', verbose_name='описание')
 
     def __str__(self):
         return self.name
@@ -42,7 +33,6 @@ class Service(models.Model):
     class Meta:
         verbose_name_plural = 'Сервисы'
         verbose_name = 'Сервис'
-        # ordering = ('my_order',)
         db_table = 'service'
 
 

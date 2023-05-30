@@ -14,21 +14,32 @@
 
 <body class="bg-gray-3">
 <div class="">
-    <header class="bg-white px-4">
-        <div class="flex items-center max-w-[1055px] m-auto">
-            {% for category in categories %}
+    <header class="bg-white px-4 sticky top-0 shadow-[0_1px_3px_rgba(0,0,0,0.12)] relative">
+        <div class="max-w-[1000px] m-auto flex items-center justify-between ">
+            <img src="{% static 'service/images/texnomart-logo.svg' %}" alt="" class="w-[150px] absolute top-2 left-1">
+            <div class="flex flex-wrap">
+                {% for category in categories %}
 
-                <div data-tab="tab-{{ category.id }}"
-                     class="text-gray-1 font-medium py-[14px] mr-5 cursor-pointer tab-head">{{ category }}
-                </div>
+                    <div data-tab="tab-{{ category.id }}"
+                         class="text-gray-1 font-medium py-[14px] mr-5 cursor-pointer tab-head text-sm">{{ category }}
+                    </div>
 
-            {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="w-[20%] ml-8">
+                <input type="text" placeholder="Поиск сервиса"
+                       class="border border-solid border-[#333] w-full h-9 rounded-lg px-4 text-sm outline-none">
+            </div>
+            <a href="{% url 'login_page' %}"
+               class="bg-[#336FEE] py-1.5 px-4 inline-block text-white rounded-lg ml-10 absolute top-1.5 right-3">
+                Войти
+            </a>
         </div>
     </header>
 
     <div class="px-4">
 
-        <div class="mt-6 max-w-[1055px] m-auto">
+        <div class="mt-6 max-w-[1000px] m-auto">
             {% for category in categories %}
 
                 <div data-tab="tab-{{ category.id }}" class="tab-content">
@@ -42,14 +53,14 @@
                                     {% for service in group.service.all %}
                                         <a href="{{ service.url }}" target="_blank"
                                            class="flex items-center justify-between p-2 bg-gray-2 rounded-xl mb-1.5 last:mb-0  768:mb-0">
-                                            <div class="flex items-center mb-1.5">
-                                                <div class="w-12 h-12 flex items-center justify-center mr-2">
+                                            <div class="flex items-center">
+                                                <div class="min-w-[48px] h-12 flex items-center justify-center mr-2">
                                                     <img src="{{ service.icon.url }}"
-                                                         class="w-6 h-6 object-contain" alt="">
+                                                         class="w-full h-full object-contain" alt="">
                                                 </div>
                                                 <div>
-                                                    <div class="font-medium mb-1">{{ service.name }}</div>
-                                                    <div class="text-gray-1">{{ service.description }}</div>
+                                                    <div class="font-medium  text-sm">{{ service.name }}</div>
+                                                    <div class="text-gray-1 text-xs">{{ service.description }}</div>
                                                 </div>
                                             </div>
                                             <div class="w-9 h-9 flex items-center justify-center">
@@ -68,6 +79,7 @@
                 </div>
             {% endfor %}
         </div>
+
 
     </div>
 </div>
