@@ -8,7 +8,7 @@ from users.models import Role
 
 class Category(models.Model):
     title = models.CharField(max_length=100, unique=True, verbose_name='Названия категории')
-    role = models.ManyToManyField(Role, verbose_name='роль')
+    role = models.ManyToManyField(Role, verbose_name='роль', max_length=150)
     order = models.IntegerField(default=0, verbose_name='группировка')
 
     def __str__(self):
@@ -48,8 +48,8 @@ class Service(models.Model):
 
 class GroupService(models.Model):
     name = models.CharField(max_length=255, unique=True, verbose_name='Названия группы')
-    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, related_name='groups',
-                                 verbose_name='категория')
+    category = models.ManyToManyField('Category', related_name='groups',
+                                      verbose_name='категория')
     service = models.ManyToManyField('Service', )
 
     my_order = models.IntegerField(
