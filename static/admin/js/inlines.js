@@ -82,7 +82,7 @@
                 addButton.parent().hide();
             }
             // Show the remove buttons if there are more than min_num.
-            toggleDeleteButtonVisibility(row.closest('.inline-GroupService'));
+            toggleDeleteButtonVisibility(row.closest('.inline-group'));
 
             // Pass the new form to the post-add callback, if provided.
             if (options.added) {
@@ -122,7 +122,7 @@
             e1.preventDefault();
             const deleteButton = $(e1.target);
             const row = deleteButton.closest('.' + options.formCssClass);
-            const inlineGroupService = row.closest('.inline-GroupService');
+            const inlineGroup = row.closest('.inline-group');
             // Remove the parent form containing this button,
             // and also remove the relevant row with non-field errors:
             const prevRow = row.prev();
@@ -148,7 +148,7 @@
                 addButton.parent().show();
             }
             // Hide the remove buttons if at min_num.
-            toggleDeleteButtonVisibility(inlineGroupService);
+            toggleDeleteButtonVisibility(inlineGroup);
             // Also, update names and ids for all remaining form controls so
             // they remain in sequence:
             let i, formCount;
@@ -161,11 +161,11 @@
             }
         };
 
-        const toggleDeleteButtonVisibility = function(inlineGroupService) {
+        const toggleDeleteButtonVisibility = function(inlineGroup) {
             if ((minForms.val() !== '') && (minForms.val() - totalForms.val()) >= 0) {
-                inlineGroupService.find('.inline-deletelink').hide();
+                inlineGroup.find('.inline-deletelink').hide();
             } else {
-                inlineGroupService.find('.inline-deletelink').show();
+                inlineGroup.find('.inline-deletelink').show();
             }
         };
 
@@ -346,11 +346,11 @@
             let selector;
             switch(data.inlineType) {
             case "stacked":
-                selector = inlineOptions.name + "-GroupService .inline-related";
+                selector = inlineOptions.name + "-group .inline-related";
                 $(selector).stackedFormset(selector, inlineOptions.options);
                 break;
             case "tabular":
-                selector = inlineOptions.name + "-GroupService .tabular.inline-related tbody:first > tr.form-row";
+                selector = inlineOptions.name + "-group .tabular.inline-related tbody:first > tr.form-row";
                 $(selector).tabularFormset(selector, inlineOptions.options);
                 break;
             }

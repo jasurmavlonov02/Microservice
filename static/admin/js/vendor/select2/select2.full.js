@@ -1039,7 +1039,7 @@ S2.define('select2/results',[
     }
 
     if (data.children) {
-      attrs.role = 'GroupService';
+      attrs.role = 'group';
       attrs['aria-label'] = data.text;
       delete attrs['aria-selected'];
     }
@@ -1054,7 +1054,7 @@ S2.define('select2/results',[
       var $option = $(option);
 
       var label = document.createElement('strong');
-      label.className = 'select2-results__GroupService';
+      label.className = 'select2-results__group';
 
       var $label = $(label);
       this.template(data, label);
@@ -3318,7 +3318,7 @@ S2.define('select2/data/select',[
     $options.each(function () {
       var $option = $(this);
 
-      if (!$option.is('option') && !$option.is('optGroupService')) {
+      if (!$option.is('option') && !$option.is('optgroup')) {
         return;
       }
 
@@ -3344,7 +3344,7 @@ S2.define('select2/data/select',[
     var option;
 
     if (data.children) {
-      option = document.createElement('optGroupService');
+      option = document.createElement('optgroup');
       option.label = data.text;
     } else {
       option = document.createElement('option');
@@ -3400,7 +3400,7 @@ S2.define('select2/data/select',[
         selected: $option.prop('selected'),
         title: $option.prop('title')
       };
-    } else if ($option.is('optGroupService')) {
+    } else if ($option.is('optgroup')) {
       data = {
         text: $option.prop('label'),
         children: [],
@@ -5739,10 +5739,10 @@ S2.define('select2/core',[
     var self = this;
 
     // Ignore any mutation events raised for elements that aren't options or
-    // optGroupServices. This handles the case when the select element is destroyed
+    // optgroups. This handles the case when the select element is destroyed
     if (
       evt && evt.target && (
-        evt.target.nodeName !== 'OPTION' && evt.target.nodeName !== 'OPTGroupService'
+        evt.target.nodeName !== 'OPTION' && evt.target.nodeName !== 'OPTGROUP'
       )
     ) {
       return;

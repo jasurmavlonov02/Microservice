@@ -13,8 +13,8 @@ const Login = {
     const inputUsername = $('#id_username')
     const inputPassword = $('#id_password')
 
-    const usernameField = $('<div />', { class: 'input-GroupService mb-2' })
-      .append($('<span />', { class: 'input-GroupService-text' }).append('<i class="fa fa-user"></i>'))
+    const usernameField = $('<div />', { class: 'input-group mb-2' })
+      .append($('<span />', { class: 'input-group-text' }).append('<i class="fa fa-user"></i>'))
       .append(inputUsername.clone())
 
     inputUsername.replaceWith(usernameField)
@@ -27,8 +27,8 @@ const Login = {
       passwordInputField.attr('type', visible ? 'password' : 'text')
     })
 
-    const passwordField = $('<div />', { class: 'input-GroupService mb-2' })
-      .append($('<span />', { class: 'input-GroupService-text' }).append('<i class="fa fa-key"></i>'))
+    const passwordField = $('<div />', { class: 'input-group mb-2' })
+      .append($('<span />', { class: 'input-group-text' }).append('<i class="fa fa-key"></i>'))
       .append(passwordInputField)
       .append(viewPasswordIcon)
 

@@ -757,7 +757,7 @@ try {
 }
 
 function Sizzle( selector, context, results, seed ) {
-	var m, i, elem, nid, match, GroupServices, newSelector,
+	var m, i, elem, nid, match, groups, newSelector,
 		newContext = context && context.ownerDocument,
 
 		// nodeType defaults to 9, since context defaults to document
@@ -869,13 +869,13 @@ function Sizzle( selector, context, results, seed ) {
 					}
 
 					// Prefix every selector in the list
-					GroupServices = tokenize( selector );
-					i = GroupServices.length;
+					groups = tokenize( selector );
+					i = groups.length;
 					while ( i-- ) {
-						GroupServices[ i ] = ( nid ? "#" + nid : ":scope" ) + " " +
-							toSelector( GroupServices[ i ] );
+						groups[ i ] = ( nid ? "#" + nid : ":scope" ) + " " +
+							toSelector( groups[ i ] );
 					}
-					newSelector = GroupServices.join( "," );
+					newSelector = groups.join( "," );
 				}
 
 				try {
@@ -1034,12 +1034,12 @@ function createDisabledPseudo( disabled ) {
 			// * listed form-associated elements in a disabled fieldset
 			//   https://html.spec.whatwg.org/multipage/forms.html#category-listed
 			//   https://html.spec.whatwg.org/multipage/forms.html#concept-fe-disabled
-			// * option elements in a disabled optGroupService
+			// * option elements in a disabled optgroup
 			//   https://html.spec.whatwg.org/multipage/forms.html#concept-option-disabled
 			// All such elements have a "form" property.
 			if ( elem.parentNode && elem.disabled === false ) {
 
-				// Option elements defer to a parent optGroupService if present
+				// Option elements defer to a parent optgroup if present
 				if ( "label" in elem ) {
 					if ( "label" in elem.parentNode ) {
 						return elem.parentNode.disabled === disabled;
@@ -2352,7 +2352,7 @@ Expr.setFilters = new setFilters();
 
 tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
 	var matched, match, tokens, type,
-		soFar, GroupServices, preFilters,
+		soFar, groups, preFilters,
 		cached = tokenCache[ selector + " " ];
 
 	if ( cached ) {
@@ -2360,7 +2360,7 @@ tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
 	}
 
 	soFar = selector;
-	GroupServices = [];
+	groups = [];
 	preFilters = Expr.preFilter;
 
 	while ( soFar ) {
@@ -2372,7 +2372,7 @@ tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
 				// Don't consume trailing commas as valid
 				soFar = soFar.slice( match[ 0 ].length ) || soFar;
 			}
-			GroupServices.push( ( tokens = [] ) );
+			groups.push( ( tokens = [] ) );
 		}
 
 		matched = false;
@@ -2417,7 +2417,7 @@ tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
 			Sizzle.error( selector ) :
 
 			// Cache the tokens
-			tokenCache( selector, GroupServices ).slice( 0 );
+			tokenCache( selector, groups ).slice( 0 );
 };
 
 function toSelector( tokens ) {
@@ -2704,7 +2704,7 @@ function matcherFromTokens( tokens ) {
 	return elementMatcher( matchers );
 }
 
-function matcherFromGroupServiceMatchers( elementMatchers, setMatchers ) {
+function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 	var bySet = setMatchers.length > 0,
 		byElement = elementMatchers.length > 0,
 		superMatcher = function( seed, context, xml, results, outermost ) {
@@ -2854,7 +2854,7 @@ compile = Sizzle.compile = function( selector, match /* Internal Use Only */ ) {
 		// Cache the compiled function
 		cached = compilerCache(
 			selector,
-			matcherFromGroupServiceMatchers( elementMatchers, setMatchers )
+			matcherFromGroupMatchers( elementMatchers, setMatchers )
 		);
 
 		// Save selector and tokenization
@@ -4982,19 +4982,19 @@ var wrapMap = {
 	// same way that tag soup parsers do. So we cannot shorten
 	// this by omitting <tbody> or other required elements.
 	thead: [ 1, "<table>", "</table>" ],
-	col: [ 2, "<table><colGroupService>", "</colGroupService></table>" ],
+	col: [ 2, "<table><colgroup>", "</colgroup></table>" ],
 	tr: [ 2, "<table><tbody>", "</tbody></table>" ],
 	td: [ 3, "<table><tbody><tr>", "</tr></tbody></table>" ],
 
 	_default: [ 0, "", "" ]
 };
 
-wrapMap.tbody = wrapMap.tfoot = wrapMap.colGroupService = wrapMap.caption = wrapMap.thead;
+wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
 wrapMap.th = wrapMap.td;
 
 // Support: IE <=9 only
 if ( !support.option ) {
-	wrapMap.optGroupService = wrapMap.option = [ 1, "<select multiple='multiple'>", "</select>" ];
+	wrapMap.optgroup = wrapMap.option = [ 1, "<select multiple='multiple'>", "</select>" ];
 }
 
 
@@ -5986,7 +5986,7 @@ jQuery.fn.extend( {
 var
 
 	// Support: IE <=10 - 11, Edge 12 - 13 only
-	// In IE/Edge using regex GroupServices here causes severe slowdowns.
+	// In IE/Edge using regex groups here causes severe slowdowns.
 	// See https://connect.microsoft.com/IE/feedback/details/1736512/
 	rnoInnerhtml = /<script|<style|<link/i,
 
@@ -8284,7 +8284,7 @@ jQuery.extend( {
 // forces the browser to respect setting selected
 // on the option
 // The getter ensures a default option is selected
-// when in an optGroupService
+// when in an optgroup
 // eslint rule "no-unused-expressions" is disabled for this code
 // since it considers such accessions noop
 if ( !support.optSelected ) {
@@ -8627,10 +8627,10 @@ jQuery.extend( {
 					// IE8-9 doesn't update selected after form reset (trac-2551)
 					if ( ( option.selected || i === index ) &&
 
-							// Don't return options that are disabled or in a disabled optGroupService
+							// Don't return options that are disabled or in a disabled optgroup
 							!option.disabled &&
 							( !option.parentNode.disabled ||
-								!nodeName( option.parentNode, "optGroupService" ) ) ) {
+								!nodeName( option.parentNode, "optgroup" ) ) ) {
 
 						// Get the specific value for the option
 						value = jQuery( option ).val();
