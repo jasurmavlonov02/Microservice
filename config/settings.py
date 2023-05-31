@@ -132,6 +132,7 @@ IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 import os
 
+# STATIC_URL = 'https://dash.tm.uz/static/'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 #
