@@ -15,10 +15,11 @@ class CategoryAdmin(SortableAdminMixin, ImportExportModelAdmin):
     list_display = ['title', 'order', ]
 
 
-class GroupServiceAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+class GroupServiceAdmin(SortableAdminMixin, ImportExportModelAdmin, admin.ModelAdmin):
     search_fields = ["name", ]
     list_filter = ['category', ]
-    list_display = ['name', ]
+    list_display = ['name', "my_order"]
+    ordering = ["my_order", ]
 
     class Meta:
         model = GroupService

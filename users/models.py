@@ -28,6 +28,8 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
+    full_name = models.CharField(max_length=255, null=True, blank=True)
+    phone = models.CharField(max_length=255, null=True, blank=True)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     is_superuser = models.BooleanField(default=True)
     role = models.ForeignKey('Role', on_delete=models.CASCADE, related_name='users', null=True, verbose_name='роль')

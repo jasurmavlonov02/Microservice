@@ -17,19 +17,27 @@
 <div class="">
     <header class="bg-white px-4 sticky top-0 shadow-[0_1px_3px_rgba(0,0,0,0.12)] relative">
         <div class="max-w-[1000px] m-auto flex items-center justify-between ">
-            <img src="{% static 'service/images/texnomart-logo.svg' %}" alt="" class="w-[150px] absolute top-2 left-1">
-            <div class="flex flex-wrap">
-                {% for category in categories %}
+            <a href="{% url 'index' %}" class="w-[150px] absolute top-2 left-1">
+                <img src="{% static 'service/images/texnomart-logo.svg' %}" alt="">
 
+            </a>
+            <div class="flex flex-wrap">
+
+
+                {% for category in categories %}
                     <div data-tab="tab-{{ category.id }}"
                          class="text-gray-1 font-medium py-[14px] mr-3 cursor-pointer tab-head text-sm">{{ category }}
                     </div>
 
                 {% endfor %}
+
+
             </div>
             <div class="w-[20%] ml-8">
-                <input type="text" placeholder="Поиск сервиса"
-                       class="border border-solid border-[#333] w-full h-9 rounded-lg px-4 text-sm outline-none">
+                <form action="{% url 'search' %}" method="get">
+                    <input type="text" placeholder="Поиск сервиса" name="q" minlength="1" required="required"
+                           class="border border-solid border-[#333] w-full h-9 rounded-lg px-4 text-sm outline-none">
+                </form>
             </div>
             <a href="{% url 'login_page' %}"
                class="bg-[#336FEE] py-1.5 px-4 inline-block text-white rounded-lg ml-10 absolute top-1.5 right-3">
@@ -55,7 +63,7 @@
                                         <a href="{{ service.url }}" target="_blank"
                                            class="flex items-center justify-between p-2 bg-gray-2 rounded-xl mb-1.5 last:mb-0  768:mb-0">
                                             <div class="flex items-center">
-                                                <div class="min-w-[48px] h-12 flex items-center justify-center mr-2">
+                                                <div class="min-w-[48px] max-w-[48px] h-12 flex items-center justify-center mr-2">
                                                     <img src="{{ service.icon.url }}"
                                                          class="w-full h-full object-contain" alt="">
                                                 </div>

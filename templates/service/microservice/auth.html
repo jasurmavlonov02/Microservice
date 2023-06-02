@@ -6,10 +6,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'auth/css/style.css' %}">
+    <title>Вход</title>
+    <link rel="stylesheet" href="{% static 'service/css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="https://texnomart.uz/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="{% static 'auth/js/tailwind.config.js' %}"></script>
+    <script src="{% static 'service/js/tailwind.config.js' %}"></script>
 </head>
 
 <body class="bg-gray-3">
@@ -21,22 +22,37 @@
                 <img src="{% static 'auth/images/logo.svg' %}" alt="">
             </div>
             <div class="text-lg mb-6 text-center font-medium">Войти</div>
-            <form>
+            <form method="post" action="{% url 'login_page' %}">
                 {% csrf_token %}
-                <label class="mb-5 block">
-                    <input type="text" placeholder="Логин"
-                           class="w-full h-[52px] bg-[#F5F7FA] rounded-lg px-3 focus-visible:outline-none border border-solid border-[#FF1616]  ">
-                </label>
-                <!-- агар хато буса border border-solid border-[#FF1616] шу класслар кушилади -->
-                <label class=" block">
-                    <input type="password" placeholder="Пароль"
-                           class="w-full h-[52px] bg-[#F5F7FA] rounded-lg px-3 focus-visible:outline-none ">
-                </label>
-                <div class="text-[#FF1616] mt-4">Неправильный логин или пароль</div>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="text-[#FF1616] mt-4">{{ message }}</div>
+                        <label class="mb-5 block">
+                            <input type="text" placeholder="Логин" name="username" required
+                                   class="w-full h-[52px] bg-[#F5F7FA] rounded-lg px-3 focus-visible:outline-none  border border-solid border-[#FF1616]">
+                        </label>
+                        <label class=" block">
+                            <input type="password" placeholder="Пароль" name="password" required
+                                   class="w-full h-[52px] bg-[#F5F7FA] rounded-lg px-3 focus-visible:outline-none ">
+                        </label>
+                    {% endfor %}
+                {% else %}
+                    <label class="mb-5 block">
+                        <input type="text" placeholder="Логин" name="username" required
+                               class="w-full h-[52px] bg-[#F5F7FA] rounded-lg px-3 focus-visible:outline-none">
+                    </label>
+                    <!-- агар хато буса border border-solid border-[#FF1616] шу класслар кушилади -->
+                    <label class=" block">
+                        <input type="password" placeholder="Пароль" name="password" required
+                               class="w-full h-[52px] bg-[#F5F7FA] rounded-lg px-3 focus-visible:outline-none ">
+                    </label>
+
+                {% endif %}
                 <button
                         class="bg-[#336FEE] rounded-lg text-white flex items-center justify-center font-medium w-full h-12 mt-9">
                     Войти
                 </button>
+
             </form>
         </div>
     </div>
