@@ -1,7 +1,7 @@
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
-from django.contrib import messages
 import requests
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import render, redirect
 
 from Service.forms import LoginForm
 from users.models import CustomUser

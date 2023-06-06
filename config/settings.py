@@ -134,11 +134,11 @@ import os
 
 # STATIC_URL = 'https://dash.tm.uz/static/'
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 #
-# STATICFILES_DIRS = [
-#    os.path.join(BASE_DIR, 'assets'),
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'Service/media')
@@ -247,3 +247,7 @@ DEBUG_TOOLBAR_CONFIG = {
     'MIDDLEWARE': [],
     'PANELS': [],
 }
+
+LOGIN_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

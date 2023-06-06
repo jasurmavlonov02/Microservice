@@ -1,8 +1,9 @@
 from django.urls import path
-
-from Service.views.auth import login_page
+from django.contrib.auth.views import LogoutView
+from Service.views.auth import login_page, logout
 from Service.views.views_api import GroupServiceView
-from Service.views.views_jinja import index, search, not_found_view
+from Service.views.views_jinja import index, search
+from config import settings
 
 urlpatterns = [
     # path('category-api/', CategoryList.as_view()),
@@ -12,5 +13,5 @@ urlpatterns = [
     path('', index, name='index'),
     path('login-page/', login_page, name='login_page'),
     path('search/', search, name='search'),
-    path('not-found/', not_found_view, name='not_found')
+    path('logout/', LogoutView.as_view(next_page=settings.LOGOUT_REDIRECT_URL), name='logout_page')
 ]

@@ -1,12 +1,12 @@
 const tabs = document.querySelectorAll(".tab-head");
 const tabContents = document.querySelectorAll(".tab-content");
 
-tabs[0].classList.add("active");
-tabContents[0].classList.add("active");
+
+tabs[0]?.classList.add("active");
+tabContents[0]?.classList.add("active");
 // add click event listener to each tab
 tabs.forEach((tab) => {
   tab.addEventListener("click", () => {
-    console.log("111");
     // remove active class from all tabs and tab contents
     tabs.forEach((tab) => tab.classList.remove("active"));
     tabContents.forEach((content) => content.classList.remove("active"));
@@ -19,4 +19,17 @@ tabs.forEach((tab) => {
     );
     tabContent.classList.add("active");
   });
+});
+
+
+
+// search
+const mobile_search = document.querySelector(".mobile-search");
+const mobile_desktop = document.querySelector(".mobile-desktop");
+const input_close = document.querySelector(".input-close");
+mobile_search.addEventListener("click", function () {
+  mobile_desktop.classList.add("show");
+});
+input_close.addEventListener("click", function () {
+  mobile_desktop.classList.remove("show");
 });
