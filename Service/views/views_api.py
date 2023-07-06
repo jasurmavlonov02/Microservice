@@ -1,46 +1,60 @@
-from rest_framework.generics import ListAPIView
+from django.db.models import Q, Prefetch, Count
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from Service.models import Category, GroupService
-from Service.paginations import StandardResultsSetPagination
-from Service.serializers import CategorySerializer, GroupServiceSerializer
+from Service.models import GroupService, Category, Service
+from Service.serializers import CategorySerializer
+from users.models import CustomUser
 
 
 # Create your views here.
 
-class CategoryList(ListAPIView):
-    queryset = Category.objects.all().prefetch_related('groups')
-    serializer_class = CategorySerializer
+
+class CategoryApiView(APIView):
+    def get(self, request):
+        query = request.query_params.get('query', '')
+
+        if request.user.is_authenticated:
+
+            if query:
+                categories = Category.objects.annotate(num_services=Count('groups__service')).filter(
+                    Q(num_services__gt=0) & (Q(is_default=True) | Q(role__users=request.user)) & (Q(
+                        groups__service__name__icontains=query) | Q(
+                        groups__name__icontains=query))).distinct().prefetch_related(
+                    Prefetch('groups',
+                             queryset=GroupService.objects.all().filter(Q(
+                                 service__name__icontains=query) | Q(name__icontains=query)).distinct()),
+                    Prefetch('groups__service',
+                             queryset=Service.objects.all().filter(
+                                 Q(name__icontains=query) | Q(services__name__icontains=query)).distinct()),
+                )
 
 
-class GroupServiceView(ListAPIView):
-    # queryset = MicroService.objects.all()
-    pagination_class = StandardResultsSetPagination
-    serializer_class = GroupServiceSerializer
 
-    def get_queryset(self):
-        category_id = self.kwargs['category_id']
-        return GroupService.objects.filter(category_id=category_id).prefetch_related('services')
+            else:
+                categories = Category.objects.annotate(num_services=Count('groups__service')).filter(
+                    Q(num_services__gt=0) & (Q(is_default=True) | Q(role__users=request.user))).prefetch_related(
+                    'groups__service')
 
-#
-# class GroupServiceView(GenericAPIView):
-#     def get(self, request):
-#         cat_id = request.GET.get('id')
-#         cat_query = Category.objects.filter(id=cat_id)
-#         cat_serializer = CategorySerializer
-#
-#         group_query = GroupService.objects.filter(category_id=cat_id)
-#         group_serializer = GroupServiceSerializer
-#
-#         serializer1 = cat_serializer(cat_query, many=True)
-#         serializer2 = group_serializer(group_query, many=True)
-#
-#         data = {
-#             'data': {
-#                 'category': serializer1.data,
-#                 'group_service': serializer2.data
-#             }
-#
-#         }
-#         return Response(data, status=status.HTTP_200_OK)
-#
-#
+
+
+
+
+        else:
+            if query:
+                categories = Category.objects.filter(
+                    Q(is_default=True) & (Q(groups__service__name__icontains=query) | Q(
+                        groups__name__icontains=query))).distinct().prefetch_related(
+                    Prefetch('groups',
+                             queryset=GroupService.objects.all().filter(Q(
+                                 service__name__icontains=query) | Q(name__icontains=query)).distinct()),
+                    Prefetch('groups__service',
+                             queryset=Service.objects.all().filter(
+                                 Q(name__icontains=query) | Q(services__name__icontains=query)).distinct()),
+                )
+
+            else:
+                categories = Category.objects.filter(is_default=True)
+
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data)

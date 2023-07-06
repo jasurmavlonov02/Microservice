@@ -16,7 +16,9 @@ def index(request):
             Q(num_services__gt=0) & (Q(is_default=True) | Q(role__users=request.user))).order_by('-is_default',
                                                                                                  'order', )
     else:
-        categories = Category.objects.filter(is_default=True).order_by('-is_default', 'order', )
+        categories = Category.objects.annotate(num_services=Count('groups__service')).filter(
+            Q(num_services__gt=0) & Q(is_default=True)).order_by('-is_default',
+                                                                 'order', )
 
     context = {
         'categories': categories,

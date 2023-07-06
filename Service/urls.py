@@ -1,12 +1,12 @@
 from django.urls import path
 from django.contrib.auth.views import LogoutView
 from Service.views.auth import login_page, logout
-from Service.views.views_api import GroupServiceView
+from Service.views.views_api import CategoryApiView
 from Service.views.views_jinja import index, search
 from config import settings
 
 urlpatterns = [
-    # path('category-api/', CategoryList.as_view()),
+    path('category-api/', CategoryApiView.as_view()),
     # path('group-api/<int:category_id>', GroupServiceView.as_view()),
     # path('category/<int:category_id>/', category, name='category'),
     # path('group/<int:category_id>/', group_service, name='group_service'),
